@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Clients extends Component {
   state = {
@@ -29,6 +30,7 @@ class Clients extends Component {
             <th>Tax ID</th>
             <th>Address</th>
             <th>Phone</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +40,11 @@ class Clients extends Component {
               <td>{client.tax_id}</td>
               <td>{client.address}</td>
               <td>{client.phone}</td>
+              <td>
+                <Link className='btn btn-primary' to={`/clients/${client.id}`}>
+                  Edit
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>

@@ -1,13 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
 
 import Clients from './components/Clients';
+import ClientForm from './components/clientForm';
+import './App.css';
 
 function App() {
   return (
-    <div className='container'>
-      <Clients />
-    </div>
+    <main className='container'>
+      <Routes>
+        <Route path='/clients' element={<Clients/>}/>
+        <Route path='/clients/:id' element={<ClientForm/>}/>
+      </Routes>
+    </main>
   );
 }
 
