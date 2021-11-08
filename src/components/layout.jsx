@@ -1,12 +1,14 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
+import NavBar from './navbar';
+
 function Layout() {
   return (
-    <div>
-      <h1>Layout</h1>
+    <React.Fragment>
+      <NavBar />
       <Outlet />
-    </div>
+    </React.Fragment>
   );
 }
 
