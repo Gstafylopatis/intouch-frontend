@@ -1,25 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { getClients } from "../services/fakeClientService";
 
 class Clients extends Component {
   state = {
-    clients: [
-      {
-        id: 1,
-        name: 'george',
-        tax_id: '123213213',
-        address: 'latamias 38',
-        phone: '123123',
-      },
-      {
-        id: 2,
-        name: 'antonis',
-        tax_id: '232323232',
-        address: 'latamias 42',
-        phone: '657897',
-      },
-    ],
+    clients: [],
   };
+
+  componentDidMount() {
+    this.setState({ clients: getClients() });
+  }
 
   handleDelete = (id) => {
     let clients = [...this.state.clients];
@@ -29,7 +19,7 @@ class Clients extends Component {
 
   render() {
     return (
-      <table className='table'>
+      <table className="table">
         <thead>
           <tr>
             <th>Name</th>
@@ -47,13 +37,13 @@ class Clients extends Component {
               <td>{client.address}</td>
               <td>{client.phone}</td>
               <td>
-                <Link className='btn btn-primary' to={`/clients/${client.id}`}>
+                <Link className="btn btn-primary" to={`/clients/${client.id}`}>
                   Edit
                 </Link>
               </td>
               <td>
                 <button
-                  className='btn btn-danger'
+                  className="btn btn-danger"
                   onClick={() => this.handleDelete(client.id)}
                 >
                   Delete
