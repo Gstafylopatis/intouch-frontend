@@ -21,6 +21,12 @@ class Clients extends Component {
     ],
   };
 
+  handleDelete = (id) => {
+    let clients = [...this.state.clients];
+    clients = clients.filter((client) => client.id !== id);
+    this.setState({ clients });
+  };
+
   render() {
     return (
       <table className='table'>
@@ -44,6 +50,14 @@ class Clients extends Component {
                 <Link className='btn btn-primary' to={`/clients/${client.id}`}>
                   Edit
                 </Link>
+              </td>
+              <td>
+                <button
+                  className='btn btn-danger'
+                  onClick={() => this.handleDelete(client.id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
