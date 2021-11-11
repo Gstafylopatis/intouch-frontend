@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "./common/form";
-import { getClient } from "../services/fakeClientService";
+import { getClient, saveClient } from "../services/fakeClientService";
 
 class ClientForm extends Form {
   state = {
@@ -17,7 +17,6 @@ class ClientForm extends Form {
       const client_id = this.props.id;
       if (client_id === "new") return;
       const data = await getClient(client_id);
-      console.log(data);
       if (data === undefined) throw new Error("Does not Exist");
       this.setState({ data });
     } catch (e) {
@@ -25,8 +24,21 @@ class ClientForm extends Form {
     }
   }
 
+  doSubmit = async () => {
+    await saveClient(this.state.data);
+    this.props.navigate("/clients");
+  };
+
   render() {
-    return <form>{this.renderInput("name", "name")}</form>;
+    return (
+      <form onSubmit={this.handleSubmit}>
+        {this.renderInput("name", "name")}
+        {this.renderInput("tax_id", "Tax ID")}
+        {this.renderInput("address", "Address")}
+        {this.renderInput("phone", "Phone Number")}
+        {this.renderButton("Submit")}
+      </form>
+    );
   }
 }
 

@@ -19,15 +19,22 @@ export function getClients() {
   return clients;
 }
 
-export function saveClient(clientIn) {
+export function saveClient(client) {
   // First check if clients exists
   // if he does then update the fields
   // Then save it to the clients array
-  const clientExists = clients.find((client) => client.id === clientIn.id);
-  if (clientExists) {
-    clients[clientIn.id] = clientIn;
+  let clientInDb = clients.find((c) => c.id === client.id) || {};
+  clientInDb.name = client.name;
+  clientInDb.tax_id = client.tax_id;
+  clientInDb.address = client.address;
+  clientInDb.phone = client.phone;
+
+  //If client does not exist
+  if (!clientInDb.id) {
+    clientInDb.id = clients.length + 1;
+    clients.push(clientInDb);
   }
-  console.log(clients);
+  return clientInDb;
 }
 
 export function getClient(id) {
