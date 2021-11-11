@@ -1,0 +1,10 @@
+
+-For clientForm:
+    --Router in App.js imports functional Component clientFormWrapper
+    --We need to go with functional Component to use hook useParams
+    --and get the client id.
+    --Then we return <clientForm params={params}/>
+    --clientForm extends form class that houses the necessary functions
+    --to render the form, as well as the state. clientForm's job is to
+    --get the data from the clientService, populate the state and then submit
+    --the data to the service after submission

@@ -1,66 +1,32 @@
-import React, { Component } from 'react';
+import React from "react";
+import Form from "./common/form";
+import { getClient } from "../services/fakeClientService";
 
-class ClientForm extends Component {
+class ClientForm extends Form {
   state = {
-    name: '',
-    tax_id: '',
-    address: '',
-    phone: '',
+    data: { id: "", name: "", tax_id: "", address: "", phone: "" },
   };
 
-  handleChange = (event) => {
-    const field = event.target.name;
-    this.setState({ [field]: event.target.value });
-  };
+  async componentDidMount() {
+    await this.getClientData();
+  }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(event);
-    console.log(this.state);
-  };
+  async getClientData() {
+    //Try to read client id from props
+    try {
+      const client_id = this.props.id;
+      if (client_id === "new") return;
+      const data = await getClient(client_id);
+      console.log(data);
+      if (data === undefined) throw new Error("Does not Exist");
+      this.setState({ data });
+    } catch (e) {
+      alert(e);
+    }
+  }
 
   render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input
-            type='text'
-            name='name'
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-        </label>
-        <label>
-          Tax ID:
-          <input
-            type='text'
-            name='tax_id'
-            value={this.state.tax_id}
-            onChange={this.handleChange}
-          />
-        </label>
-        <label>
-          Address:
-          <input
-            type='text'
-            name='address'
-            value={this.state.address}
-            onChange={this.handleChange}
-          />
-        </label>
-        <label>
-          Phone:
-          <input
-            type='text'
-            name='phone'
-            value={this.state.phone}
-            onChange={this.handleChange}
-          />
-        </label>
-        <input type='submit' name='submit' />
-      </form>
-    );
+    return <form>{this.renderInput("name", "name")}</form>;
   }
 }
 

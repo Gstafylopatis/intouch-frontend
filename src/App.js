@@ -1,7 +1,7 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 
 import Clients from "./components/clients";
-import ClientForm from "./components/clientForm";
+import ClientFormWrapper from "./components/clientFormWrapper";
 import Layout from "./components/layout";
 import Home from "./components/home";
 
@@ -11,12 +11,13 @@ function App() {
   return (
     <main className="container">
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="clients" element={<Clients />} />
-          <Route path="clients/:id" element={<ClientForm />} />
+        <Route index element={<Layout />} />
+        <Route path="home" element={<Home />} />
+        <Route path="clients" element={<Clients />}>
+          <Route path=":id" element={<ClientFormWrapper />} />
         </Route>
       </Routes>
+      <Outlet />
     </main>
   );
 }
