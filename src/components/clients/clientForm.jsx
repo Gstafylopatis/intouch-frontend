@@ -1,6 +1,6 @@
 import React from "react";
-import Form from "./common/form";
-import { getClient, saveClient } from "../services/fakeClientService";
+import Form from "../common/form";
+import { getClient, saveClient } from "../../services/fakeClientService";
 
 class ClientForm extends Form {
   state = {
